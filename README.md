@@ -1,0 +1,1 @@
+# trainer-blind-print
