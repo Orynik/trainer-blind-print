@@ -10,6 +10,8 @@
 </template>
 
 <style lang="scss">
+@import './assets/scss/_main';
+
 #app {
   display: flex;
   font-family: Avenir, Helvetica, Arial, sans-serif;
