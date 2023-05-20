@@ -3,6 +3,7 @@ import {computed, defineProps, onBeforeUnmount, onMounted, ref} from "vue";
 import TextWriteInput from "@/components/TestWriteInput/TextWriteRender.vue";
 
 import {startStopwatch, stopStopwatch, timeInMinute} from "@/components/_composibles/stopwatch"
+import Loader from "@/components/loader.vue";
 
 let props = defineProps<{
   text: string[],
@@ -29,7 +30,7 @@ function onKeyupKeyboard(e: KeyboardEvent) {
   let isServiceKey = !!~listServiceKeys.findIndex((key) => e.key.toLowerCase() === key)
   if (isServiceKey) return
 
-  if (e.key != computedCurrentChar.value) {
+  if (e.key != computedCurrentChar.value && !(e.key === '-' && computedCurrentChar.value === '—')) {
     invalidChar.value = true
     errorCounter.value++
     return
@@ -75,22 +76,60 @@ const accuracyWriting = computed(() => {
 
 <template>
   <div>
-    <div v-if="isLoading">Загрузка...</div>
-    <div v-else>
-      <span>Аккуратность,% : {{ accuracyWriting }} %</span>
-      <br>
-      <span>Сим/м: {{ charPerMin }}</span>
-      <div @keydown="onKeyupKeyboard">
-        <TextWriteInput v-bind="{
-      text,
-      invalidChar,
-      indexCurrentChar
-    }"/>
-      </div>
+    <loader
+      v-if="isLoading"
+      is-fullscreen-loader
+    />
+    <div
+      v-else
+      class="test-write"
+    >
+      <TextWriteInput
+        class="test-write__textarea p-3"
+        v-bind="{
+            text,
+            invalidChar,
+            indexCurrentChar
+          }"/>
+      <aside
+        class="test-write__info"
+      >
+        <div class="d-flex flex-column">
+          <p>Скорость</p>
+          <p>{{ charPerMin }} зн./мин </p>
+        </div>
+        <div class="d-flex flex-column">
+          <p>Точность</p>
+          <p>{{ accuracyWriting }} % </p>
+        </div>
+      </aside>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+@import '~bootstrap/scss/bootstrap';
 
+
+.test-write {
+  margin: 0 auto;
+  display: flex;
+  width: 800px;
+  background: $gray-500;
+  border-radius: 10px;
+
+  &__textarea {
+    flex-basis: 650px;
+    background: $gray-600;
+  }
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__info {
+    margin: 0 auto;
+    width: 100px;
+  }
+}
 </style>

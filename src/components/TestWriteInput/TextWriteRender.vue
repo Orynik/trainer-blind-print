@@ -32,22 +32,34 @@ let computedCharData = computed(() => {
 </script>
 
 <template>
-  <div class="input-group">
-    <div>
+  <div class="text-start">
       <span
         :key="id"
         v-for="({id,charName}) in computedCharData"
+        class="char"
         :class="[
-          {'badge bg-primary': id === indexCurrentChar},
-          {'bg-danger' : invalidChar && id === indexCurrentChar }
+          {'custom-select': id === indexCurrentChar},
+          {'custom-select--uncorrect' : invalidChar && id === indexCurrentChar }
         ]"
       >
       {{ charName }}
       </span>
-    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.char {
+  font-size: 20px
+}
 
+.custom-select {
+  padding: 0 3px 2px;
+  font-size: 21px;
+  background: green;
+  border-radius: 5px;
+
+  &--uncorrect {
+    background: red;
+  }
+}
 </style>

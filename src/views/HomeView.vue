@@ -31,7 +31,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="home">
+  <div class="w-100">
     <TextWriteWindow
       :text="textFromApi.trim().split('') "
       :is-loading="isLoading"

@@ -1,20 +1,12 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link>
-    |
-    <router-link
-        to="/about">About
-    </router-link>
-  </nav>
   <router-view/>
 </template>
 
 <style lang="scss">
-@import './assets/scss/_main';
+@import '~bootstrap/scss/bootstrap';
 
 #app {
-  display: flex;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
   -webkit-font-smoothing: antialiased;
