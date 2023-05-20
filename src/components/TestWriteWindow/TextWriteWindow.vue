@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {computed, defineProps, onBeforeUnmount, onMounted, ref} from "vue";
-import TextWriteInput from "@/components/TestWriteInput/TextWriteRender.vue";
+import TextWriteInput from "@/components/TestWriteWindow/_components/TextWriteRender.vue";
 
-import {startStopwatch, stopStopwatch, timeInMinute} from "@/components/_composibles/stopwatch"
+import {startStopwatch, stopStopwatch, timeInMinute, time} from "@/components/TestWriteWindow/_composibles/stopwatch"
 import Loader from "@/components/loader.vue";
 
 let props = defineProps<{
@@ -92,15 +92,21 @@ const accuracyWriting = computed(() => {
             indexCurrentChar
           }"/>
       <aside
-        class="test-write__info"
+        class="test-write__info p-3"
       >
         <div class="d-flex flex-column">
           <p>Скорость</p>
           <p>{{ charPerMin }} зн./мин </p>
         </div>
+
         <div class="d-flex flex-column">
           <p>Точность</p>
           <p>{{ accuracyWriting }} % </p>
+        </div>
+
+        <div class="d-flex flex-column">
+          <p>Прошедшее время</p>
+          <p>{{ time }} с. </p>
         </div>
       </aside>
     </div>
@@ -121,6 +127,7 @@ const accuracyWriting = computed(() => {
   &__textarea {
     flex-basis: 650px;
     background: $gray-600;
+    border-radius: 10px;
   }
 
   &__wrapper {
@@ -129,7 +136,7 @@ const accuracyWriting = computed(() => {
 
   &__info {
     margin: 0 auto;
-    width: 100px;
+    width: 150px;
   }
 }
 </style>

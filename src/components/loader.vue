@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {defineProps} from 'vue'
 
-let props = defineProps<{
+defineProps<{
   isFullscreenLoader: boolean
 }>()
 </script>
