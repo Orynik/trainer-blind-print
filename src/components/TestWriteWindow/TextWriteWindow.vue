@@ -1,13 +1,23 @@
 <script setup lang="ts">
-import {computed, defineProps, onBeforeUnmount, onMounted, ref} from "vue";
+import {computed, defineProps, defineEmits, onBeforeUnmount, onMounted, ref} from "vue";
 import TextWriteInput from "@/components/TestWriteWindow/_components/TextWriteRender.vue";
 
-import {startStopwatch, stopStopwatch, timeInMinute, time} from "@/components/TestWriteWindow/_composibles/stopwatch"
+import {
+  startStopwatch,
+  restartStopwatch,
+  stopStopwatch,
+  timeInMinute,
+  time
+} from "@/components/TestWriteWindow/_composibles/stopwatch"
 import Loader from "@/components/loader.vue";
 
 let props = defineProps<{
   text: string[],
   isLoading: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'backToForm', data: MouseEvent): void,
 }>()
 
 // Обработка нажатого символа
@@ -72,6 +82,20 @@ const accuracyWriting = computed(() => {
 
 // Конец расчета очности вводимой информации
 
+let textWriteInputEl = ref('')
+
+function backToForm(e: MouseEvent) {
+  emit('backToForm', e)
+}
+
+function restart(e: MouseEvent) {
+  console.log(e)
+  indexCurrentChar.value = 0
+  invalidChar.value = false
+  errorCounter.value = 0
+  restartStopwatch()
+}
+
 </script>
 
 <template>
@@ -107,6 +131,28 @@ const accuracyWriting = computed(() => {
         <div class="d-flex flex-column">
           <p>Прошедшее время</p>
           <p>{{ time }} с. </p>
+        </div>
+
+        <div class="d-flex flex-column">
+          <hr>
+          <span> Функции </span>
+          <button
+            type="button"
+            class="btn btn-link"
+            tabindex="-1"
+            @keyup.prevent
+            @click.left="restart"
+          >
+            Заново
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-link"
+            tabindex="-1"
+            @click="backToForm">
+            Назад
+          </button>
         </div>
       </aside>
     </div>

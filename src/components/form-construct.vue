@@ -31,7 +31,8 @@ function sendData() {
     </div>
 
     <div class="input-group mb-3">
-      <input v-model="formData.countOfsentence" type="number" class="form-control" placeholder="Количество предложений"
+      <input v-model="formData.countOfsentence" max="10" type="number" class="form-control"
+             placeholder="Количество предложений"
              aria-describedby="basic-addon2">
     </div>
 

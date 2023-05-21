@@ -52,6 +52,11 @@ function getText(data: formDataAfterSend) {
     .catch((err) => console.error('Ошибка: ', err))
 }
 
+function backToForm() {
+  isShowForm.value = true
+  isLoading.value = true
+}
+
 </script>
 
 <template>
@@ -65,6 +70,7 @@ function getText(data: formDataAfterSend) {
       v-else
       :text="textFromApi.trim().split('') "
       :is-loading="isLoading"
+      @backToForm="backToForm"
     />
   </div>
 </template>

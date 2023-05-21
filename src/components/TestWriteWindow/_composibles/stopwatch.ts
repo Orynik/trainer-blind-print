@@ -16,7 +16,12 @@ function startStopwatch() {
 
 function stopStopwatch() {
     clearInterval(intervalId.value)
-    time.value = 0
+}
+
+function restartStopwatch() {
+    stopStopwatch()
+    time.value = 1
+    startStopwatch()
 }
 
 export {
@@ -27,4 +32,5 @@ export {
     // functions
     startStopwatch,
     stopStopwatch,
+    restartStopwatch
 }
