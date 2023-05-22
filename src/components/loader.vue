@@ -1,15 +1,28 @@
 <script setup lang="ts">
 import {defineProps} from 'vue'
 
-defineProps<{
-  isFullscreenLoader: boolean
-}>()
+defineProps({
+  color: {
+    type: String,
+    default: 'primary',
+    validator: (value: string) => {
+      return ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'].includes(value)
+    }
+  },
+  isFullscreenLoader: {
+    type: Boolean,
+    default: false
+  }
+})
 </script>
 
 <template>
   <div
-    class="spinner-border text-dark mx-auto"
-    :class="{'spinner-fullscreen' : isFullscreenLoader}"
+    class="spinner-border mx-auto"
+    :class="[
+      {'spinner-fullscreen' : isFullscreenLoader},
+      `text-${color}`
+      ]"
     role="status"
   >
     <span class="visually-hidden">Loading...</span>
