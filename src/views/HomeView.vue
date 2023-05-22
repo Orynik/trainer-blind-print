@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import FishText from '@/views/api'
+
 import {ref} from "vue";
 
 import TextWriteWindow from "@/components/TestWriteWindow/TextWriteWindow.vue";
-
-import FishText from '@/views/api'
 import FormConstruct from "@/components/form-construct.vue";
+
 import {formDataFishTextRu, formDataFishTextEn, formDataAfterSend} from "@/types/formData";
 
 let textFromApi = ref('')
@@ -16,7 +17,7 @@ function getText(data: formDataAfterSend) {
   if (data.lang === 'Ru') {
     const formData: formDataFishTextRu = {
       type: 'sentence',
-      number: data.countOfsentence,
+      number: data.sentences,
       format: 'json'
     }
 
@@ -39,7 +40,7 @@ function getText(data: formDataAfterSend) {
 
   const formData: formDataFishTextEn = {
     type: "all-meat",
-    sentences: data.countOfsentence
+    sentences: data.sentences
   }
 
   FishText.getFishTextEn(formData)

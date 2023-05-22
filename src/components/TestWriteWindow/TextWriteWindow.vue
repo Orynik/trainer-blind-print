@@ -33,7 +33,6 @@ const listServiceKeys = ['shift', 'capslock', 'enter', 'control', 'alt', 'backsp
 function onKeyupKeyboard(e: KeyboardEvent) {
   // TODO: Исправить TS, чтобы не выдвал ошибку на array.prototype.at
   if (indexCurrentChar.value >= props.text.length - 1) {
-    //TODO: Модалка либо редирект на страницу с результатами тестирования
     stopStopwatch()
   }
 
@@ -48,8 +47,6 @@ function onKeyupKeyboard(e: KeyboardEvent) {
 
   invalidChar.value = false
 
-  //TODO: Добавить доп обработку скорости ввода и тд
-
   indexCurrentChar.value++
 }
 
@@ -58,7 +55,7 @@ function onKeyupKeyboard(e: KeyboardEvent) {
 // Хуки
 onMounted(() => {
   document.addEventListener('keydown', onKeyupKeyboard)
-  startStopwatch()
+  if (props.text.length) startStopwatch()
 })
 
 onBeforeUnmount(() => {
@@ -66,34 +63,27 @@ onBeforeUnmount(() => {
 })
 
 // Расчет скорости ввода
-
 const charPerMin = computed(() => {
   let value: number = +indexCurrentChar.value / timeInMinute.value
   return value.toFixed()
 })
 
-// Конец расчета скорости ввода
 
 // Расчет точности вводимой информации
-
 const accuracyWriting = computed(() => {
   return (100 - (errorCounter.value * 100) / props.text.length).toFixed(1)
 })
 
 // Конец расчета очности вводимой информации
-
-let textWriteInputEl = ref('')
-
 function backToForm(e: MouseEvent) {
   emit('backToForm', e)
 }
 
-function restart(e: MouseEvent) {
-  console.log(e)
+function restart() {
   indexCurrentChar.value = 0
   invalidChar.value = false
   errorCounter.value = 0
-  restartStopwatch()
+  if (props.text.length) restartStopwatch()
 }
 
 </script>
@@ -109,12 +99,21 @@ function restart(e: MouseEvent) {
       class="test-write"
     >
       <TextWriteInput
+        v-if="text.length"
         class="test-write__textarea p-3"
         v-bind="{
             text,
             invalidChar,
             indexCurrentChar
-          }"/>
+          }"
+      />
+      <div
+        v-else
+        class="test-write__textarea p-3"
+      >
+        Произошла ошибка запроса данных, попробуйте позже
+      </div>
+
       <aside
         class="test-write__info p-3"
       >
