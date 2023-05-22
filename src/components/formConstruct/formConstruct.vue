@@ -25,7 +25,7 @@ let $v = useVuelidate(props.formValidation, formData)
 function sendData() {
   $v.value.$touch()
   if ($v.value.$errors.length) return
-  emit('sendData', formData)
+  emit('sendData', formData.value)
 }
 </script>
 
