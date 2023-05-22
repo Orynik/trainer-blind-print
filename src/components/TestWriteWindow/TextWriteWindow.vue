@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, defineProps, defineEmits, onBeforeUnmount, onMounted, ref} from "vue";
+import {computed, defineProps, defineEmits, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import TextWriteInput from "@/components/TestWriteWindow/_components/TextWriteRender.vue";
 
 import {
@@ -52,10 +52,14 @@ function onKeyupKeyboard(e: KeyboardEvent) {
 
 // Конец обработки нажатия
 
+
+watch(() => props.text, () => {
+  if (props.text.length) startStopwatch()
+});
+
 // Хуки
 onMounted(() => {
   document.addEventListener('keydown', onKeyupKeyboard)
-  if (props.text.length) startStopwatch()
 })
 
 onBeforeUnmount(() => {

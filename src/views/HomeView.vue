@@ -4,15 +4,52 @@ import FishText from '@/views/api'
 import {ref} from "vue";
 
 import TextWriteWindow from "@/components/TestWriteWindow/TextWriteWindow.vue";
-import FormConstruct from "@/components/form-construct.vue";
+import FormConstruct from "@/components/formConstruct/formConstruct.vue";
+import {formSchemaType} from '@/components/formConstruct/formConstructor'
 
-import {formDataFishTextRu, formDataFishTextEn, formDataAfterSend} from "@/types/formData";
+import {formDataFishTextRu, formDataFishTextEn} from "@/types/formData";
+import {between, maxValue, numeric, required} from "@vuelidate/validators";
+
+const isLang = (val: string) => ['Ru', 'En'].includes(val)
+
+const formSchema: Array<formSchemaType> = [
+  {
+    name: 'lang',
+    label: 'Выберите язык',
+    type: 'select',
+    placeholder: 'Количество предложений',
+    default: '',
+    options: {
+      selectData: [
+        {
+          label: 'Ru',
+          value: 'Ru'
+        },
+        {
+          label: 'En',
+          value: 'En'
+        }
+      ]
+    }
+  },
+  {
+    name: 'sentences',
+    type: 'input',
+    label: 'Количество предложений',
+    default: '',
+  }
+]
+
+const formValidation: object = {
+  lang: {required, isLang},
+  sentences: {maxValue, numeric, betweenValue: between(1, 15), required},
+}
 
 let textFromApi = ref('')
 let isLoading = ref(true)
 let isShowForm = ref(true)
 
-function getText(data: formDataAfterSend) {
+function getText(data: { lang: string, sentences: string }) {
   isShowForm.value = false
   if (data.lang === 'Ru') {
     const formData: formDataFishTextRu = {
@@ -64,6 +101,8 @@ function backToForm() {
   <div class="test-page">
     <form-construct
       v-if="isShowForm"
+      :form-schema="formSchema"
+      :form-validation="formValidation"
       class="modal-setup"
       @send-data="getText"
     />
