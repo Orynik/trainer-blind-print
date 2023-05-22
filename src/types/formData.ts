@@ -11,10 +11,10 @@ type formDataFishTextEn = {
 
 type formDataAfterSend = {
     lang: string,
-    countOfsentence: number
+    sentences: number
 }
-
 export {
-    formDataFishTextRu, formDataFishTextEn,
+    formDataFishTextRu,
+    formDataFishTextEn,
     formDataAfterSend
 }

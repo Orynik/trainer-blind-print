@@ -86,7 +86,8 @@ function backToForm() {
 
 .modal-setup {
   padding: 15px 30px;
-  background: var(--bs-gray-600);
+  color: var(--bs-white);
+  background: var(--bs-gray-700);
   border-radius: 10px;
 }
 </style>
