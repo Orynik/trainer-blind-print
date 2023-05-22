@@ -80,6 +80,7 @@ const accuracyWriting = computed(() => {
 
 // Конец расчета очности вводимой информации
 function backToForm(e: MouseEvent) {
+  stopStopwatch()
   emit('backToForm', e)
 }
 
