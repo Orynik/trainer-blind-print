@@ -17,14 +17,16 @@ let formData = reactive({
 
 let langDictinary = ['Ru', 'En']
 
+const isLang = (val: string) => langDictinary.includes(val)
 const rules = {
-  lang: {required},
+  lang: {required, isLang},
   sentences: {maxValue, numeric, betweenValue: between(1, 15), required}
 }
 
 const $v = useVuelidate(rules, formData)
 
 function sendData() {
+  $v.value.$touch()
   if ($v.value.$errors.length) return
   emit('sendData', formData)
 }
