@@ -1,6 +1,6 @@
 # Важно
 
-Production версия: orynik.github.io/trainer-blind-print/
+Production версия: https://orynik.github.io/trainer-blind-print/
 
 Развертка приложенния:
 
