@@ -1,19 +1,25 @@
 #!/usr/bin/env sh
 
-# abort on errors
+# остановить публикацию при ошибках
 set -e
 
-# build
-yarn run build
+# сборка
+npm run build
 
-# if you are deploying to a custom domain
+# переход в каталог сборки
+cd dist
+
+# если вы публикуете на пользовательский домен
 # echo 'www.example.com' > CNAME
 
 git init
 git add -A
 git commit -m 'deploy'
 
-# if you are deploying to https://<USERNAME>.github.io/<REPO>
-git subtree push --prefix dist origin gh-pages
+# если вы публикуете по адресу https://<USERNAME>.github.io
+# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
+
+# если вы публикуете по адресу https://<USERNAME>.github.io/<REPO>
+git push -f git@github.com:Orynik/trainer-blind-print.git master:gh-pages
 
 cd -
