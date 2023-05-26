@@ -1,5 +1,7 @@
 # Важно
 
+Production версия: https://orynik.github.io/trainer-blind-print/
+
 Развертка приложенния:
 
 1) Скачать приложение https://github.com/Orynik/trainer-blind-print.git
