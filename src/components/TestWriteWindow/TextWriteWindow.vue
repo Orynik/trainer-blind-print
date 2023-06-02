@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, defineProps, defineEmits, onBeforeUnmount, onMounted, ref, watch} from "vue";
+import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import TextWriteInput from "@/components/TestWriteWindow/_components/TextWriteRender.vue";
 
 import {
@@ -107,10 +107,10 @@ function restart() {
         v-if="text.length"
         class="test-write__textarea p-3"
         v-bind="{
-            text,
-            invalidChar,
-            indexCurrentChar
-          }"
+          text,
+          invalidChar,
+          indexCurrentChar
+        }"
       />
       <div
         v-else
@@ -154,7 +154,8 @@ function restart() {
             type="button"
             class="btn btn-link"
             tabindex="-1"
-            @click="backToForm">
+            @click="backToForm"
+          >
             Назад
           </button>
         </div>

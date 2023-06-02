@@ -49,12 +49,12 @@ let textFromApi = ref('')
 let isLoading = ref(true)
 let isShowForm = ref(true)
 
-function getText(data: { lang: string, sentences: string }) {
+function getText(rawValue: { lang: string, sentences: string }) {
   isShowForm.value = false
-  if (data.lang === 'Ru') {
+  if (rawValue.lang === 'Ru') {
     const formData: formDataFishTextRu = {
       type: 'sentence',
-      number: data.sentences,
+      number: rawValue.sentences,
       format: 'json'
     }
 
@@ -70,14 +70,13 @@ function getText(data: { lang: string, sentences: string }) {
       .finally(() => {
         isLoading.value = false
       })
-      .catch((err) => console.error('Ошибка: ', err))
 
     return
   }
 
   const formData: formDataFishTextEn = {
     type: "all-meat",
-    sentences: data.sentences
+    sentences: rawValue.sentences
   }
 
   FishText.getFishTextEn(formData)

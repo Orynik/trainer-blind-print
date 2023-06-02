@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {defineProps} from 'vue'
 
 defineProps({
   color: {
@@ -22,7 +21,7 @@ defineProps({
     :class="[
       {'spinner-fullscreen' : isFullscreenLoader},
       `text-${color}`
-      ]"
+    ]"
     role="status"
   >
     <span class="visually-hidden">Loading...</span>

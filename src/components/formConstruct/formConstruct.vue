@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {ref, defineEmits, defineProps} from "vue";
+import {ref} from "vue";
 
 import useVuelidate from "@vuelidate/core";
 import {formSchemaType} from '@/components/formConstruct/formConstructor'
@@ -31,7 +31,9 @@ function sendData() {
 
 <template>
   <form>
-    <h3 class="mx-5">Слепая печать</h3>
+    <h3 class="mx-5">
+      Слепая печать
+    </h3>
 
     <div
       v-for="element in formSchema"
@@ -47,7 +49,13 @@ function sendData() {
           :class="{'is-invalid': $v[element.name].$error}"
           @blur="$v[element.name].$touch()"
         >
-          <option selected disabled value="default">Выберите язык:</option>
+          <option
+            selected
+            disabled
+            value="default"
+          >
+            Выберите язык:
+          </option>
           <option
             v-for="{label,value} in element.options.selectData"
             :key="label"
@@ -61,8 +69,8 @@ function sendData() {
           class="invalid-feedback"
         >
           <div
-            :key="error.$uid"
             v-for="error in $v[element.name].$errors"
+            :key="error.$uid"
           >
             {{ error.$message }}
           </div>
@@ -72,7 +80,10 @@ function sendData() {
         v-if="element.type === 'input'"
         class="input-group flex-column mb-3"
       >
-        <label for="sentences" class="form-label align-self-start">{{ element.label }}</label>
+        <label
+          for="sentences"
+          class="form-label align-self-start"
+        >{{ element.label }}</label>
         <input
           :id="element.name"
           v-model="formData[element.name]"
@@ -86,8 +97,8 @@ function sendData() {
           class="invalid-feedback"
         >
           <div
-            :key="error.$uid"
             v-for="error in $v[element.name].$errors"
+            :key="error.$uid"
           >
             {{ error.$message }}
           </div>

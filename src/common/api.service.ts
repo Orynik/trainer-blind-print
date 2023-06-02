@@ -1,4 +1,7 @@
-import axios from '@/common/axios.global'
+import axios from 'axios'
+
+const axiosInstance = axios.create()
+
 
 interface dataParams {
     [key: string]: string
@@ -25,7 +28,8 @@ function formDataSetup(sendingData: string | dataParams, method = '') {
 
 const ApiService = {
     get(url: string, params?: object) {
-        return axios.get(url, {params})
+        return axiosInstance.get(url, {params})
+            .catch((err) => console.error(`Ошибка запроса: ${err}`))
     },
     post(url: string, data: dataParams | string, params?: object, responseType?: string) {
         const formData = formDataSetup(data)
@@ -38,7 +42,8 @@ const ApiService = {
                 headers: {'Content-Type': 'application/json'}
             }
         }
-        return axios.post(url, formData, config)
+        return axiosInstance.post(url, formData, config)
+            .catch((err) => console.error(`Ошибка запроса: ${err}`))
     }
 }
 
